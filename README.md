@@ -1,8 +1,6 @@
 # Mall-Learning 🛒
 
-基于 **Spring Boot + MyBatis-Plus + Redis + RabbitMQ** 的电商后端学习项目。
-
-> 通过 mall 商城项目学习 Java 后端核心技术，代码带有详细的**费曼学习法注释**，适合面试复习。
+基于 **Spring Boot + MyBatis-Plus + Redis + RabbitMQ** 的电商后端项目。
 
 ---
 
@@ -59,28 +57,17 @@ curl "http://localhost:8081/mq-test/send?msg=HelloMQ"
 - MyBatis-Plus 动态条件查询
 - Redis 缓存加速（待启动 Redis 后生效）
 
-### RabbitMQ 消息队列（🌟 面试重点）
+### RabbitMQ 消息队列
 
-| 功能 | 对应文件 | 面试考点 |
-|------|---------|---------|
+| 功能 | 对应文件 | 说明 |
+|------|---------|------|
 | Direct 直连模式 | `RabbitMQConfig.java` | 基础消息路由 |
-| **死信队列 DLQ** | `DeadLetterConsumer.java` | 消息处理失败机制 |
-| **延迟队列/订单超时取消** | `AdvancedRabbitMQController.java` | 🔥 最高频面试题 |
-| **Fanout 广播模式** | `FanoutConsumer.java` | 三种交换机区别 |
-| **Topic 通配符模式** | `TopicConsumer.java` | `#` vs `*` 区别 |
-| **幂等性处理** | `ProductMessageReceiver.java` | 防止重复消费 |
-| **手动 ACK** | `DeadLetterConsumer.java` | 消息不丢失保证 |
-
----
-
-## 🎯 面试话术
-
-> "我独立搭建了这个电商后端项目，基于 Spring Boot + MyBatis-Plus + Redis + RabbitMQ。
-> 核心是商品管理和订单流程。我重点优化了缓存和消息队列部分：
-> - 使用 Redis 缓存热点数据，设置随机过期时间防止缓存雪崩
-> - 基于 RabbitMQ 死信队列实现订单超时取消功能
-> - 使用消息确认机制保证消息不丢失
-> - 接口设计具有幂等性，防止重复消费"
+| 死信队列 DLQ | `DeadLetterConsumer.java` | 消息处理失败机制 |
+| 延迟队列/订单超时取消 | `AdvancedRabbitMQController.java` | 延迟消息应用 |
+| Fanout 广播模式 | `FanoutConsumer.java` | 广播消息 |
+| Topic 通配符模式 | `TopicConsumer.java` | 通配符匹配路由 |
+| 幂等性处理 | `ProductMessageReceiver.java` | 防止重复消费 |
+| 手动 ACK | `DeadLetterConsumer.java` | 消息确认机制 |
 
 ---
 
@@ -104,7 +91,7 @@ src/main/java/com/example/malllearning/
     ├── ProductService.java         # 商品业务逻辑（含缓存 + MQ）
     ├── ProductMessageSender.java   # RabbitMQ 生产者
     ├── ProductMessageReceiver.java # RabbitMQ 消费者
-    ├── BusinessConsumer.java       # 业务队列消费者（死信演示）
+    ├── BusinessConsumer.java       # 业务队列消费者
     ├── DeadLetterConsumer.java     # 死信队列消费者
     ├── FanoutConsumer.java         # 广播模式消费者
     └── TopicConsumer.java          # 主题模式消费者
