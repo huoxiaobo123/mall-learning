@@ -1,0 +1,15 @@
+target/
+*.class
+*.jar
+*.war
+*.log
+.idea/
+*.iml
+.settings/
+.project
+.classpath
+.mvn/
+mvnw
+mvnw.cmd
+HELP.md
+test.http
